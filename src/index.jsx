@@ -39,20 +39,24 @@ export default function withQueryParams({
       }
 
       setQueryParam = (...args) => {
+        const obj = isObject(args[0]) ? args[0] : {
+          [args[0]]: args[1],
+        };
+
+        this.setQueryParams(obj);
+      }
+
+      setQueryParams = (obj) => {
         const {
           location,
           history,
         } = this.props;
 
-        const values = isObject(args[0]) ? args[0] : {
-          [args[0]]: args[1],
-        };
-
         const to = history.createHref({
           pathname: location.pathname,
           search: queryString.stringify({
             ...queryString.parse(location.search, QUERYPARAMS_OPTIONS),
-            ...values,
+            ...obj,
           }, QUERYPARAMS_OPTIONS),
         });
 
