@@ -11,6 +11,12 @@
 npm install --save react-router-query-params
 ```
 
+## Peer dependencies
+
+* react
+* react-router v. ^4.0.0
+* react-router-dom v. ^4.0.0
+
 ## Example
 
 ```jsx
@@ -37,12 +43,12 @@ const ConnectedComponent = withQueryParams({
   keys: {
     example1: {
       default: 'example-1-default',
-      validate: queryParam => !!queryParam && queryParam.length > 3,
+      validate: value => !!value && value.length > 3,
     },
     example2: {
-      default: (queryParam, props) => props.defaultValue,
-      validate: (queryParam, props) =>
-        !!queryParam && !props.disallowedValues.includes(queryParam)
+      default: (value, props) => props.defaultValue,
+      validate: (value, props) =>
+        !!value && !props.disallowedValues.includes(value)
     }
   }
 })(ExampleComponent);
@@ -64,20 +70,25 @@ this.props.setQueryParam({ key1: 'value1', key2: 'value2' })
 The library exports `withQueryParams` higher order component as default. The HoC takes a configuration object as the first argument, and has the following options:
 
 * __`stripUnknownKeys`__ (boolean)
-  * if `true`, removes keys from query parameters that are not configured with `keys`
-  * default: false
+  - if `true`, removes keys from query parameters that are not configured with `keys`
+  - default: false
 
 * __`keys`__ (object)
 
 #### Keys
 
 Keys object is used to create a configuration for the query parameters that are intended to be used.
+Every key is configured with the following properties:
 
-## Peer dependencies
+* __`default`__ (string|function): Define the default value for the query parameter. If query parameter valiation fails or it is undefined, the HoC automatically sets the query parameter to this value. Examples:
+  - `default: 'example'`: sets 'example' as default value
+  - `default: (value, props) => props.defaultParam'`: sets `defaultParam` from the component props as default value
+  - `default: undefined`: do not set query parameter at all by default
 
-* react
-* react-router v. ^4.0.0
-* react-router-dom v. ^4.0.0
+* __`validate`__ (function): Validate the query parameter and revert to default value if validation does not pass. Examples:
+  - `validate: () => true`: allow any alue
+  - `validate: value => !!value && value.length > 2`: allow any value with more than two characters
+  - `validate: (value, props) => props.allowedValues.includes(values)`: validate value based on props
 
 ## License
 
