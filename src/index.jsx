@@ -18,6 +18,18 @@ export default function withQueryParams({
     assert(Object.keys(keys).length > 0, 'at least one query param key must be configured');
   }
 
+  if (keys) {
+    Object.keys(keys).forEach((key) => {
+      assert(keys[key].default, `Missing default value for key ${key}`);
+      assert(
+        typeof keys[key].default === 'string' || typeof keys[key].default === 'function',
+        `'default' for key ${key} must be a string or a function`,
+      );
+      assert(keys[key].validate, `Missing validate function for key ${key}`);
+      assert(typeof keys[key].validate === 'function', `'validate' for ${key} must be a function`);
+    });
+  }
+
   const QUERYPARAMS_OPTIONS = {
     arrayFormat: 'none', // one of: 'none', 'bracket', 'index',
     ...queryStringOptions,
