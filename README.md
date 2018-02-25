@@ -74,10 +74,19 @@ The library exports `withQueryParams` higher order component as default. The HoC
   - default: false
 
 * __`keys`__ (object)
+  - example:
+    ```js
+    keys: {
+      example: {
+        default: 'default-value',
+        validate: () => true
+      }
+    }
+    ```
 
-#### Keys
+#### Key configuration object
 
-Keys object is used to create a configuration for the query parameters that are intended to be used.
+Key object is used to create a configuration for the query parameters that are intended to be used.
 Every key is configured with the following properties:
 
 * __`default`__ (string|function): Define the default value for the query parameter. If query parameter valiation fails or it is undefined, the HoC automatically sets the query parameter to this value. Examples:
