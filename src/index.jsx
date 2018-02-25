@@ -79,12 +79,19 @@ export default function withQueryParams({
         const { location } = this.props;
         const queryParams = queryString.parse(location.search, QUERYPARAMS_OPTIONS);
 
-        const newQueryParams = keys ? Object.keys(keys).reduce((acc, paramName) => ({
-          ...acc,
-          [paramName]: keys[paramName].validate(queryParams[paramName], this.props)
-            ? queryParams[paramName]
-            : keys[paramName].default(queryParams[paramName], this.props),
-        }), {}) : queryParams;
+        const newQueryParams = keys ? Object.keys(keys).reduce((acc, paramName) => {
+          const defaultConf = keys[paramName].default;
+          const defaultValue = typeof defaultConf === 'function'
+            ? defaultConf(queryParams[paramName], this.props)
+            : defaultConf;
+
+          return ({
+            ...acc,
+            [paramName]: keys[paramName].validate(queryParams[paramName], this.props)
+              ? queryParams[paramName]
+              : defaultValue,
+          });
+        }, {}) : queryParams;
 
         const allParams = stripUnknownKeys ? newQueryParams : {
           ...queryParams,
