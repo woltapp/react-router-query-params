@@ -4,10 +4,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import getDisplayName from 'react-display-name';
 
-import {
-  isObject,
-  assert,
-} from './utils';
+import { assert } from './utils';
 
 export default function withQueryParams({
   keys,
@@ -48,14 +45,6 @@ export default function withQueryParams({
           push: PropTypes.func.isRequired,
           createHref: PropTypes.func.isRequired,
         }).isRequired,
-      }
-
-      setQueryParam = (...args) => {
-        const obj = isObject(args[0]) ? args[0] : {
-          [args[0]]: args[1],
-        };
-
-        this.setQueryParams(obj);
       }
 
       setQueryParams = (obj) => {
@@ -108,7 +97,7 @@ export default function withQueryParams({
 
         const wrappedProps = {
           location,
-          setQueryParam: this.setQueryParam,
+          setQueryParams: this.setQueryParams,
           queryParams: allParams,
         };
 

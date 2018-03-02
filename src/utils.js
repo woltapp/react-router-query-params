@@ -1,4 +1,4 @@
-export const isObject = value => Object.prototype.toString.call(value) === '[object Object]';
+/* eslint-disable import/prefer-default-export */
 
 export const assert = (condition, message = 'Assertion failed') => {
   if (!condition) {
