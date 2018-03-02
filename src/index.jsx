@@ -17,11 +17,6 @@ export default function withQueryParams({
 
   if (keys) {
     Object.keys(keys).forEach((key) => {
-      assert(keys[key].default, `Missing default value for key ${key}`);
-      assert(
-        typeof keys[key].default === 'string' || typeof keys[key].default === 'function',
-        `'default' for key ${key} must be a string or a function`,
-      );
       assert(keys[key].validate, `Missing validate function for key ${key}`);
       assert(typeof keys[key].validate === 'function', `'validate' for ${key} must be a function`);
     });
