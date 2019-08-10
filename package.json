@@ -12,7 +12,7 @@
     "test": "cross-env NODE_ENV=test karma start",
     "test:watch": "npm run test -- --singleRun=false",
     "demo": "webpack-dev-server --config webpack.demo.config.js --content-base demo/",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "start": "npm run demo"
   },
   "author": "nygardk",
