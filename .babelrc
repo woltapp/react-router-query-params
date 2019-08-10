@@ -1,35 +1,20 @@
 {
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "> 0.25%, not dead"
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-class-properties"
+  ],
   "env": {
-    "commonjs": {
-      "presets": [
-        "stage-1",
-        "react",
-        ["env", {
-          "targets": {
-            "browsers": ["last 2 versions", "ie >= 11"]
-          }
-        }]
-      ],
-      "plugins": [
-        "transform-runtime",
-        "transform-class-properties"
-      ]
-    },
-    "es": {
-      "presets": [
-        "stage-1",
-        "react",
-        ["env", {
-          "modules": false,
-          "targets": {
-            "browsers": ["last 2 versions", "ie >= 10"]
-          }
-        }]
-      ],
-      "plugins": [
-        "transform-runtime",
-        "transform-class-properties"
-      ]
+    "test": {
+      "plugins": ["@babel/plugin-transform-runtime"]
     }
   }
 }

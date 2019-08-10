@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  devtool: 'source-map',
   entry: './src/index.jsx',
   output: {
     publicPath: 'lib/',
@@ -8,7 +9,7 @@ module.exports = {
     filename: 'react-router-query-params.js',
     sourceMapFilename: 'react-router-query-params.map',
     library: 'react-router-query-params',
-    libraryTarget: 'commonjs',
+    libraryTarget: 'commonjs2',
   },
   externals: {
     react: 'react',
@@ -29,7 +30,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         query: {
-          plugins: ['transform-runtime'],
+          plugins: ['@babel/transform-runtime'],
         },
         exclude: /node_modules/,
       },
