@@ -4,5 +4,8 @@
   "parser": "babel-eslint",
   "env": {
     "browser": true
+  },
+  "rules": {
+    "prettier/prettier": "error"
   }
 }

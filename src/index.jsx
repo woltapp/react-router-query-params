@@ -12,13 +12,19 @@ export default function withQueryParams({
   queryStringOptions,
 } = {}) {
   if (keys && stripUnknownKeys) {
-    assert(Object.keys(keys).length > 0, 'at least one query param key must be configured');
+    assert(
+      Object.keys(keys).length > 0,
+      'at least one query param key must be configured'
+    );
   }
 
   if (keys) {
-    Object.keys(keys).forEach((key) => {
+    Object.keys(keys).forEach(key => {
       assert(keys[key].validate, `Missing validate function for key ${key}`);
-      assert(typeof keys[key].validate === 'function', `'validate' for ${key} must be a function`);
+      assert(
+        typeof keys[key].validate === 'function',
+        `'validate' for ${key} must be a function`
+      );
     });
   }
 
@@ -27,9 +33,9 @@ export default function withQueryParams({
     ...queryStringOptions,
   };
 
-  return (Wrapped) => {
+  return Wrapped => {
     class WithQueryParams extends PureComponent {
-      static displayName = `withQueryParams(${getDisplayName(Wrapped)})`
+      static displayName = `withQueryParams(${getDisplayName(Wrapped)})`;
 
       static propTypes = {
         location: PropTypes.shape({
@@ -40,53 +46,69 @@ export default function withQueryParams({
           push: PropTypes.func.isRequired,
           createHref: PropTypes.func.isRequired,
         }).isRequired,
-      }
+      };
 
-      setQueryParams = (obj) => {
-        const {
-          location,
-          history,
-        } = this.props;
+      setQueryParams = obj => {
+        const { location, history } = this.props;
 
         const to = history.createHref({
           pathname: location.pathname,
-          search: queryString.stringify({
-            ...queryString.parse(location.search, QUERYPARAMS_OPTIONS),
-            ...obj,
-          }, QUERYPARAMS_OPTIONS),
+          search: queryString.stringify(
+            {
+              ...queryString.parse(location.search, QUERYPARAMS_OPTIONS),
+              ...obj,
+            },
+            QUERYPARAMS_OPTIONS
+          ),
         });
 
         history.push(to);
-      }
+      };
 
       render() {
         const { location } = this.props;
-        const queryParams = queryString.parse(location.search, QUERYPARAMS_OPTIONS);
+        const queryParams = queryString.parse(
+          location.search,
+          QUERYPARAMS_OPTIONS
+        );
 
-        const newQueryParams = keys ? Object.keys(keys).reduce((acc, paramName) => {
-          const defaultConf = keys[paramName].default;
-          const defaultValue = typeof defaultConf === 'function'
-            ? defaultConf(queryParams[paramName], this.props)
-            : defaultConf;
+        const newQueryParams = keys
+          ? Object.keys(keys).reduce((acc, paramName) => {
+              const defaultConf = keys[paramName].default;
+              const defaultValue =
+                typeof defaultConf === 'function'
+                  ? defaultConf(queryParams[paramName], this.props)
+                  : defaultConf;
 
-          return ({
-            ...acc,
-            [paramName]: keys[paramName].validate(queryParams[paramName], this.props)
-              ? queryParams[paramName]
-              : defaultValue,
-          });
-        }, {}) : queryParams;
+              return {
+                ...acc,
+                [paramName]: keys[paramName].validate(
+                  queryParams[paramName],
+                  this.props
+                )
+                  ? queryParams[paramName]
+                  : defaultValue,
+              };
+            }, {})
+          : queryParams;
 
-        const allParams = stripUnknownKeys ? newQueryParams : {
-          ...queryParams,
-          ...newQueryParams,
-        };
+        const allParams = stripUnknownKeys
+          ? newQueryParams
+          : {
+              ...queryParams,
+              ...newQueryParams,
+            };
 
-        const searchString = queryString.stringify(allParams, QUERYPARAMS_OPTIONS);
+        const searchString = queryString.stringify(
+          allParams,
+          QUERYPARAMS_OPTIONS
+        );
 
         if (location.search.replace('?', '') !== searchString) {
           return (
-            <Redirect to={{ pathname: location.pathname, search: searchString }} />
+            <Redirect
+              to={{ pathname: location.pathname, search: searchString }}
+            />
           );
         }
 
