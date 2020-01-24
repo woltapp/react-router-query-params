@@ -1,6 +1,6 @@
 {
   "name": "react-router-query-params",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Set query parameters with a schema for react-router.",
   "main": "./lib/index.js",
   "module": "./es/index.js",
