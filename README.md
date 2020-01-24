@@ -14,8 +14,8 @@ npm install --save react-router-query-params
 ## Peer dependencies
 
 * react
-* react-router v. ^4.0.0
-* react-router-dom v. ^4.0.0
+* react-router v. ^4.0.0 or ^5.0.0
+* react-router-dom v. ^4.0.0 or ^5.0.0
 
 ## Example
 
