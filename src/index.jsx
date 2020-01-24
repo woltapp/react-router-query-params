@@ -35,19 +35,6 @@ export default function withQueryParams({
 
   return Wrapped => {
     class WithQueryParams extends PureComponent {
-      static displayName = `withQueryParams(${getDisplayName(Wrapped)})`;
-
-      static propTypes = {
-        location: PropTypes.shape({
-          search: PropTypes.string,
-          pathname: PropTypes.string,
-        }).isRequired,
-        history: PropTypes.shape({
-          push: PropTypes.func.isRequired,
-          createHref: PropTypes.func.isRequired,
-        }).isRequired,
-      };
-
       setQueryParams = obj => {
         const { location, history } = this.props;
 
@@ -121,6 +108,19 @@ export default function withQueryParams({
         return <Wrapped {...this.props} {...wrappedProps} />;
       }
     }
+
+    WithQueryParams.displayName = `withQueryParams(${getDisplayName(Wrapped)})`;
+
+    WithQueryParams.propTypes = {
+      location: PropTypes.shape({
+        search: PropTypes.string,
+        pathname: PropTypes.string,
+      }).isRequired,
+      history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+        createHref: PropTypes.func.isRequired,
+      }).isRequired,
+    };
 
     return withRouter(WithQueryParams);
   };

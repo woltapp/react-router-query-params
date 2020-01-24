@@ -3,10 +3,7 @@ const path = require('path');
 module.exports = {
   devtool: process.env !== 'PRODUCTION' ? '#cheap-module-source-map' : false,
   entry: {
-    demo: [
-      'babel-polyfill',
-      './demo/index.js',
-    ],
+    demo: ['@babel/polyfill', './demo/index.js'],
   },
   resolve: {
     alias: {
