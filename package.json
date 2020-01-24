@@ -4,6 +4,7 @@
   "description": "Set query parameters with a schema for react-router.",
   "main": "./lib/index.js",
   "module": "./es/index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "build": "npm run lint && npm run build:commonjs && npm run build:es",
     "build:commonjs": "rimraf ./lib && cross-env BABEL_ENV=commonjs babel ./src --out-dir ./lib",
