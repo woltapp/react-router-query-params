@@ -89,13 +89,13 @@ The library exports `withQueryParams` higher order component as default. The HoC
 Key object is used to create a configuration for the query parameters that are intended to be used.
 Every key is configured with the following properties:
 
-* __`default`__ (any): Define the default value for the query parameter. If query parameter valiation fails or it is undefined, the HoC automatically sets the query parameter to this value. Examples:
+* __`default`__ (any): Define the default value for the query parameter. If query parameter validation fails or it is undefined, the HoC automatically sets the query parameter to this value. Examples:
   - `default: 'example'`: sets 'example' as default value
   - `default: (value, props) => props.defaultParam'`: sets `defaultParam` from the component props as default value
   - `default: undefined`: do not set query parameter at all by default
 
 * __`validate`__ (function): Validate the query parameter and revert to default value if validation does not pass. Examples:
-  - `validate: () => true`: allow any alue
+  - `validate: () => true`: allow any value
   - `validate: value => !!value && value.length > 2`: allow any value with more than two characters
   - `validate: (value, props) => props.allowedValues.includes(values)`: validate value based on props
 
